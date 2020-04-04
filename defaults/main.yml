@@ -1,0 +1,30 @@
+---
+
+# The node-exporter release to be installed
+node_exporter_release_tag: "latest"
+
+# The URL from which download the node-exporter release
+node_exporter_release_url: ""
+
+# node-exporter user and group
+node_exporter_user: "node_exporter"
+node_exporter_group: "node_exporter"
+
+# Directory containing the downloaded node-exporter release
+node_exporter_install_path: "/opt"
+
+# Directory to which symlink the installed node-exporter binaries
+node_exporter_bin_path: "/usr/local/bin"
+
+# node-exporter listen address
+node_exporter_listen_address: "127.0.0.1:9100"
+
+# node-exporter log level
+node_exporter_log_level: "info"
+
+# Directory containing the .prom files that will be collected and exported by the text-file collector
+# See https://github.com/prometheus/node_exporter#textfile-collector
+node_exporter_collector_textfile_path: "/var/lib/node_exporter/textfile-collector/"
+
+# Additional command-line arguments to be added to the node-exporter unit
+node_exporter_additional_cli_args: ""

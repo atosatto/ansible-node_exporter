@@ -1,0 +1,10 @@
+---
+
+- include: install-node-exporter.yml
+- include: configure-node-exporter.yml
+
+- name: Start and enable the node-exporter service
+  service:
+    name: node_exporter
+    state: started
+    enabled: true

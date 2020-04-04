@@ -1,0 +1,6 @@
+---
+
+- name: Install node_exporter
+  hosts: all
+  roles:
+    - { role: ansible-node_exporter }

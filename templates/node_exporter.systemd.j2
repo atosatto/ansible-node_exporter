@@ -1,0 +1,19 @@
+[Unit]
+Description=node_exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User={{ node_exporter_user }}
+Group={{ node_exporter_group }}
+Type=simple
+ExecStart={{ node_exporter_bin_path }}/node_exporter \
+    --web.listen-address {{ node_exporter_listen_address }} \
+    --collector.textfile.directory {{ node_exporter_collector_textfile_path }} \
+    --log.level {{ node_exporter_log_level }}{% if node_exporter_additional_cli_args | length > 0 %} \
+    {% endif -%}
+    {{ node_exporter_additional_cli_args }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

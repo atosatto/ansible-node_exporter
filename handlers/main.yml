@@ -1,0 +1,17 @@
+---
+
+- name: restart node_exporter
+  service:
+    name: node_exporter
+    state: restarted
+
+- name: reload node_exporter
+  service:
+    name: node_exporter
+    state: reloaded
+
+- name: reload systemd and restart node_exporter
+  command: systemctl daemon-reload
+  notify: restart node_exporter
+  tags:
+    - skip_ansible_lint

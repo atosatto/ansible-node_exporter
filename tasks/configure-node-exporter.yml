@@ -1,0 +1,37 @@
+---
+
+- name: Create the node-exporter textfile collector directory
+  file:
+    name: "{{ node_exporter_collector_textfile_path }}"
+    state: directory
+    group: "{{ node_exporter_group }}"
+
+- name: Create the Systemd Unit file for the node-exporter service
+  template:
+    src: node_exporter.systemd.j2
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+    mode: 0640
+  notify: reload systemd and restart node_exporter
+  when: ansible_service_mgr == "systemd"
+
+- name: Create the Upstart Unit file for the node-exporter service
+  template:
+    src: node_exporter.upstart.j2
+    dest: /etc/init/node_exporter.conf
+    owner: root
+    group: root
+    mode: 0640
+  notify: restart node_exporter
+  when: ansible_service_mgr == "upstart"
+
+- name: Create the generic start-stop script for the node-exporter service
+  template:
+    src: node_exporter.service.j2
+    dest: /etc/init.d/node_exporter
+    owner: root
+    group: root
+    mode: 0750
+  notify: restart node_exporter
+  when: ansible_service_mgr not in [ "systemd", "upstart" ]
